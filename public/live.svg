@@ -1,0 +1,44 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 88 39"
+    width="88"
+    height="39"
+    role="img"
+    aria-label="Live indicator"
+    className="max-1600:w-[65px] max-1600:h-auto max-1300:w-[55px] max-1120:w-[48px] max-960:w-[45px]"
+>
+    <title>Live</title>
+
+    <rect
+        width="88"
+        height="39"
+        rx="19.5"
+        fill="#d84727"
+    />
+
+    <circle
+        cx="22"
+        cy="19.5"
+        r="11"
+        fill="#ffffff"
+        opacity="0.44"
+    />
+
+    <circle
+        cx="22"
+        cy="19.5"
+        r="6"
+        fill="#ffffff"
+    />
+
+    <text
+        x="44"
+        y="25"
+        fill="#ffffff"
+        fontSize="18"
+        fontFamily="Inter, system-ui, sans-serif"
+        fontWeight="600"
+    >
+        Live
+    </text>
+</svg>

@@ -1,0 +1,20 @@
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import './fantasy.css';
+
+export const metadata = {
+  title: 'All Competitions | SmartB Fantasy',
+  description: 'Join fantasy competitions for Cricket, Football, Basketball, AFL, and more.',
+};
+
+export default function FantasyLayout({ children }) {
+  return (
+    <div className="fantasy-layout">
+      <Header />
+      <main className="fantasy-main">
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
+}

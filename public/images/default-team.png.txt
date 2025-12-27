@@ -1,0 +1,2 @@
+This is a placeholder for the default team logo image.
+You can replace this with an actual SVG or PNG image.
