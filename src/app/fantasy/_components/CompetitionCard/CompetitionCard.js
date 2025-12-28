@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./CompetitionCard.module.css";
 
 export default function CompetitionCard({ competition }) {
+  const MEDIA_URL = process.env.NEXT_PUBLIC_MEDIA_URL;
   const {
     eventName,
     homeTeam,
@@ -43,7 +44,7 @@ export default function CompetitionCard({ competition }) {
           <div className={styles.team}>
             <div className={styles.teamLogo}>
               <Image
-                src="/images/default-team.png"
+                src={homeTeam?.flag ? `${MEDIA_URL}${homeTeam.flag}` : "/images/default-team.png"}
                 alt={homeTeam?.name || "TBA"}
                 width={90}
                 height={90}
@@ -67,7 +68,7 @@ export default function CompetitionCard({ competition }) {
           <div className={styles.team}>
             <div className={styles.teamLogo}>
               <Image
-                src="/images/default-team.png"
+                src={awayTeam?.flag ? `${MEDIA_URL}${awayTeam.flag}` : "/images/default-team.png"}
                 alt={awayTeam?.name || "TBA"}
                 width={90}
                 height={90}

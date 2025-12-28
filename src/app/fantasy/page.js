@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Header from "@/app/fantasy/_components/Header/Header";
 import Footer from "@/app/fantasy/_components/Footer/Footer";
 import NextEventsCarousel from "@/app/fantasy/_components/NextEventsCarousel/NextEventsCarousel";
@@ -16,10 +16,23 @@ import { fetchSportBySportTypeId } from "@/lib/api";
 
 export default function FantasyPage() {
   const router = useRouter();
-  const [activeSport, setActiveSport] = useState("all");
+  const searchParams = useSearchParams();
+
+  // Read initial values from URL or use defaults
+  const getInitialSport = () => searchParams.get("sports") || "all";
+  const getInitialStatus = () => {
+    const statusParam = searchParams.get("status");
+    const statusMap = { 1: "upcoming", 2: "live", 3: "completed" };
+    return statusMap[statusParam] || "upcoming";
+  };
+  const getInitialContestType = () => searchParams.get("contestType") || "paid";
+
+  const [activeSport, setActiveSport] = useState(getInitialSport());
   const [activeSportApiId, setActiveSportApiId] = useState(null);
-  const [activeStatus, setActiveStatus] = useState("upcoming");
-  const [competitionType, setCompetitionType] = useState("paid");
+  const [activeStatus, setActiveStatus] = useState(getInitialStatus());
+  const [competitionType, setCompetitionType] = useState(
+    getInitialContestType()
+  );
   const [competitions, setCompetitions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -31,20 +44,35 @@ export default function FantasyPage() {
   const [loadingFilters, setLoadingFilters] = useState(false);
   const [sportData, setSportData] = useState(null);
 
-  // Fetch sport data with sportTypeId=2
+  // Fetch sport data with sportTypeId=2 and map API ID if sport is in URL
   useEffect(() => {
     const fetchSportData = async () => {
       try {
         const data = await fetchSportBySportTypeId(2);
         setSportData(data);
-        console.log("Sport data with sportTypeId=2:", data);
+
+        // Map sport from URL to API ID
+        const initialSport = searchParams.get("sports") || "all";
+        if (initialSport !== "all" && data?.result) {
+          const sportNameToId = {
+            cricket: 4,
+            football: 8,
+            aussierules: 9,
+            basketball: 10,
+            rugbyleague: 12,
+          };
+          const apiId = sportNameToId[initialSport];
+          if (apiId) {
+            setActiveSportApiId(apiId);
+          }
+        }
       } catch (err) {
         console.error("Error fetching sport data:", err);
       }
     };
 
     fetchSportData();
-  }, []);
+  }, [searchParams]);
 
   const fetchFilterOptions = useCallback(async () => {
     if (filterOptions) return;
@@ -138,7 +166,6 @@ export default function FantasyPage() {
   }, [fetchCompetitions]);
 
   const handleSportChange = (apiId, id) => {
-    console.log('Sport changed - apiId:', apiId, 'id:', id);
     setActiveSport(id);
     setActiveSportApiId(apiId);
     setCurrentPage(1);
@@ -165,14 +192,14 @@ export default function FantasyPage() {
   };
 
   const handleFiltersApply = (filters) => {
-    console.log("Filters applied:", filters);
     setIsFiltersOpen(false);
     // Add filter logic here
   };
 
   const handleFiltersReset = () => {
-    console.log("Filters reset");
-    // Add reset logic here
+    setFilterOptions(null);
+    setIsFiltersOpen(false);
+    fetchCompetitions();
   };
 
   return (
@@ -302,52 +329,84 @@ export default function FantasyPage() {
                     ))}
                   </div>
 
-                  <div className={styles.pagination}>
-                    <div className={styles.paginationInfo}>
-                      <span>Results per page</span>
-                      <select
-                        value={itemsPerPage}
-                        onChange={handleItemsPerPageChange}
-                        className={styles.pageSelect}
-                      >
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="50">50</option>
-                      </select>
-                    </div>
+                  <div className={styles.paginationBar}>
+                    <div className={styles.paginationRight}>
+                      <div className={styles.perPage}>
+                        <span className={styles.perPageLabel}>
+                          Results per page
+                        </span>
 
-                    <div className={styles.paginationControls}>
-                      <button
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                        className={styles.pageBtn}
-                      >
-                        Previous
-                      </button>
+                        <div className={styles.selectWrap}>
+                          <select
+                            value={itemsPerPage}
+                            onChange={handleItemsPerPageChange}
+                            className={styles.perPageSelect}
+                            aria-label="Results per page"
+                          >
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                          </select>
 
-                      <span className={styles.pageInfo}>
-                        Page {currentPage} of {totalPages}
-                      </span>
+                          <span
+                            className={styles.selectCaret}
+                            aria-hidden="true"
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24">
+                              <path fill="currentColor" d="M7 10l5 5 5-5H7z" />
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
 
-                      <button
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                        className={styles.pageBtn}
-                      >
-                        Next
-                      </button>
+                      <div className={styles.pager}>
+                        <button
+                          type="button"
+                          onClick={() => handlePageChange(currentPage - 1)}
+                          disabled={currentPage === 1}
+                          className={styles.pagerBtn}
+                          aria-label="Previous page"
+                        >
+                          ‹
+                        </button>
+
+                        <input
+                          type="number"
+                          min="1"
+                          max={totalPages}
+                          value={currentPage}
+                          onChange={(e) => {
+                            const page = Number(e.target.value);
+                            if (!Number.isFinite(page)) return;
+                            if (page >= 1 && page <= totalPages)
+                              handlePageChange(page);
+                          }}
+                          className={styles.pageNumber}
+                          aria-label="Page number"
+                        />
+
+                        <button
+                          type="button"
+                          onClick={() => handlePageChange(currentPage + 1)}
+                          disabled={currentPage === totalPages}
+                          className={styles.pagerBtn}
+                          aria-label="Next page"
+                        >
+                          ›
+                        </button>
+
+                        <span className={styles.ofText}>
+                          of{" "}
+                          <span className={styles.totalPages}>
+                            {totalPages}
+                          </span>
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </>
               )}
             </div>
-
-            <aside className={styles.sidebar}>
-              <h3 className={styles.sidebarTitle}>Next events</h3>
-              <div className={styles.sidebarContent}>
-                <p className={styles.sidebarPlaceholder}>No upcoming events</p>
-              </div>
-            </aside>
           </div>
         </div>
       </main>

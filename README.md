@@ -1,10 +1,12 @@
 # SmartB Fantasy Frontend
 
-A production-ready Next.js 16 application recreating the SmartB fantasy sports competition page with real API integration, responsive design, and optimal performance.
+A production-ready Next.js 16 application for SmartB fantasy sports competitions with real API integration, dynamic sports filtering, responsive design, and optimal performance using Turbopack.
 
 ## 🚀 Live Demo
 
-[View Live Site](#) <!-- Add your deployment URL here -->
+**Production URL**: [fantasy.devvify.dev](https://fantasy.devvify.dev)  
+
+**Staging URL**: [au.testing.smartb.com.au/fantasy](https://au.testing.smartb.com.au/fantasy)
 
 ## 📋 Table of Contents
 
@@ -16,44 +18,74 @@ A production-ready Next.js 16 application recreating the SmartB fantasy sports c
 - [Architecture](#architecture)
 - [Performance Optimizations](#performance-optimizations)
 - [Known Limitations](#known-limitations)
-- [Future Improvements](#future-improvements)
+- [TODO & Future Improvements](#todo--future-improvements)
 
 ## 🎯 Overview
 
-This project is a functional clone of the SmartB fantasy sports page (https://au.testing.smartb.com.au/fantasy), built with Next.js 16 and React 19. It features real-time sports competition data, multiple filtering options, and a responsive design that matches the original site's look and feel.
+This project is a feature-rich fantasy sports platform built with Next.js 16 and React 19, featuring:
+
+- **Dynamic Sports Integration**: Fetches sports from SmartB API (sportTypeId=2)
+- **Real API Integration**: Connected to SmartB Fantasy MS API for live competition data
+- **Advanced Filtering**: Multi-level filters for tournaments, teams, dates, and competition types
+- **Responsive Design**: Mobile-first approach with seamless cross-device experience
+- **Next.js 16 Turbopack**: Utilizing the latest build system for faster development and builds
 
 ## ✨ Features
 
 ### Core Functionality
-- ✅ **Sports Filter Tabs**: Cricket, Football, Basketball, AFL, Rugby League, and more
+
+- ✅ **Dynamic Sports Loading**: Fetches sports from API (`/api/sports/sport?sportTypeId=2`)
+    - Cricket, Soccer, Basketball, Australian Rules, Rugby League
+    - Displays upcoming fixtures count per sport
+    - Automatic sport ID mapping (API ID ↔ route ID)
 - ✅ **Status Filtering**: View Upcoming, Live, or Completed competitions
-- ✅ **Contest Type Toggle**: Switch between paid competitions and free competitions
-- ✅ **Pagination**: Navigate through multiple pages of competitions with adjustable results per page
+- ✅ **Contest Type Toggle**: Switch between paid SmartCoins competitions and free competitions
+- ✅ **Advanced Filters Accordion**: 
+    - Dynamic filter options based on status
+    - Tournament selection
+    - Team filtering
+    - Date range picker (month/year)
+    - Competition type filters
+    - Caching system for filter options
+- ✅ **Pagination**: Navigate through multiple pages with adjustable results per page (10/20/50)
 - ✅ **Responsive Design**: Fully responsive across desktop, tablet, and mobile devices
 - ✅ **Competition Cards**: Display team matchups, match times, prize pools, and entry costs
 - ✅ **Loading States**: Skeleton loaders and spinners for better UX
 - ✅ **Error Handling**: Graceful error states with retry functionality
+- ✅ **URL State Management**: Filter states reflected in URL for shareable links
 
 ### UI/UX Features
-- Clean, dark-themed interface matching the original design
+
+- Clean, dark-themed interface matching SmartB design system
+- SVG icon support with @svgr/webpack integration
 - Smooth transitions and hover effects
-- Accessible navigation and controls
-- Mobile-optimized layout
-- Real-time visual feedback for interactions
+- Accessible navigation with proper ARIA labels
+- Mobile-optimized carousel for next events
+- Collapsible filter accordion with smooth animations
+- Real-time visual feedback for all interactions
 
 ## 🛠 Tech Stack
 
-- **Framework**: Next.js 16.0.10
+- **Framework**: Next.js 16.0.10 (with Turbopack)
 - **Runtime**: React 19.2.1
+- **Build System**: Turbopack (default in Next.js 16) with Webpack fallback
 - **Styling**: CSS Modules with CSS Variables
 - **Language**: JavaScript (ES6+)
 - **Package Manager**: npm
+- **Icons**: SVG with @svgr/webpack for React component conversion
 
 ### Key Dependencies
-- `next`: ^16.0.10
-- `react`: ^19.2.1
-- `react-dom`: ^19.2.1
-- `clsx`: ^2.1.1 (for conditional className handling)
+
+- `next`: ^16.0.10 - Next.js framework with App Router
+- `react`: ^19.2.1 - React library
+- `react-dom`: ^19.2.1 - React DOM renderer
+- `clsx`: ^2.1.1 - Utility for conditional className handling
+- `@svgr/webpack`: ^8.1.0 - SVG to React component loader
+
+### Development Tools
+
+- `eslint`: ^9 - Code linting
+- `eslint-config-next`: ^16.0.10 - Next.js ESLint configuration
 
 ## 🏁 Getting Started
 
@@ -65,22 +97,23 @@ This project is a functional clone of the SmartB fantasy sports page (https://au
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/Devvify/smartb-fantasy-frontend.git
    cd smartb-fantasy-frontend
    ```
+1. **Install dependencies**
 
-2. **Install dependencies**
    ```bash
    npm install
    ```
+1. **Run the development server**
 
-3. **Run the development server**
    ```bash
    npm run dev
    ```
+1. **Open your browser**
 
-4. **Open your browser**
    Navigate to [http://localhost:3000/fantasy](http://localhost:3000/fantasy)
 
 ### Build for Production
@@ -91,6 +124,7 @@ npm start
 ```
 
 The production build will be optimized with:
+
 - Server-side rendering (SSR)
 - Automatic code splitting
 - Image optimization
@@ -100,41 +134,115 @@ The production build will be optimized with:
 
 ### API Endpoints Used
 
-The application integrates with the SmartB API to fetch real competition data:
+The application integrates with multiple SmartB API endpoints:
 
-#### Main Endpoint
+#### 1. Sports Data Endpoint
+
 ```
-GET https://au.testing.smartb.com.au/api/v1/fantasy/competitions
+GET https://au.testing.smartb.com.au/api/sports/sport?sportTypeId=2
 ```
 
-**Query Parameters:**
-- `contestType`: `paid` or `free` (default: `paid`)
-- `status`: `1` (upcoming), `2` (live), `3` (completed)
-- `sport`: Sport filter (e.g., `cricket`, `basketball`, `football`)
+**Purpose**: Fetch available sports for tab navigation
+
+**Response Structure**:
+
+```json
+{
+  "status": true,
+  "result": [
+    {
+      "id": 4,
+      "sportName": "Cricket",
+      "sportTypeId": 2,
+      "upcomingFixturesCount": 2,
+      "status": "active",
+      "isFeatured": true,
+      "sortOrder": 3
+    }
+  ]
+}
+```
+
+#### 2. Competition Events List
+
+```
+GET https://au.testing.smartb.com.au/fantasy-ms/api/v1/fantasy/event-list
+```
+
+**Query Parameters**:
+
+- `perPage`: Results per page (10, 20, 50)
 - `page`: Page number for pagination
-- `limit`: Results per page (default: 10)
+- `compType`: Competition type (paid/free)
+- `SportId`: Sport API ID (e.g., 4 for Cricket) - from sports endpoint
+- `eventType`: Event type filter
+- `status`: Status filter (upcoming/live/completed)
+- `comp_id`: Competition ID (1 for paid, 2 for free)
+- `timezone`: User's timezone (e.g., "Australia/Sydney")
 
-**Example Request:**
+**Example Request**:
+
 ```
-GET /api/v1/fantasy/competitions?contestType=paid&status=1&sport=basketball&page=1&limit=10
+GET /fantasy-ms/api/v1/fantasy/event-list?perPage=10&page=1&SportId=4&status=upcoming&comp_id=1&timezone=Australia%2FSydney
 ```
 
-### API Proxy
+#### 3. Filter Options Endpoint
 
-The application uses a Next.js API route (`/api/competitions`) to:
-1. Proxy requests to the SmartB API
-2. Handle CORS issues
-3. Implement server-side caching (30-second revalidation)
-4. Provide fallback mock data during development or API failures
+```
+GET https://au.testing.smartb.com.au/fantasy-ms/api/v1/fantasy/event-list/filters
+```
+
+**Query Parameters**:
+
+- `status`: Status filter (upcoming/live/completed)
+- `tournament_id`: Filter by specific tournament (optional)
+- `team_id`: Filter by specific team (optional)
+- `start_time`: Filter by date (optional)
+- `month`, `year`: Filter by month/year (optional)
+- `timezone`: User's timezone (conditional, based on filters)
+
+**Purpose**: Fetch dynamic filter options (tournaments, teams, dates) based on current status
+
+### API Integration Features
+
+- ✅ **Dynamic Sport Mapping**: API IDs (e.g., 4) mapped to route IDs (e.g., "cricket")
+- ✅ **Smart Caching**: Filter options cached in-memory with Map structure
+- ✅ **Timezone Awareness**: Automatic timezone detection and conversion
+- ✅ **Abort Controller**: Prevents race conditions in rapid filter changes
+- ✅ **Error Boundaries**: Graceful fallback for API failures
 
 ### Data Flow
 
 ```
-Client Component → Next.js API Route → SmartB API → Response
-                                    ↓
-                              Cache (30s)
-                                    ↓
-                            Fallback Mock Data
+Client Component → Direct API Call → SmartB Fantasy MS API → Response
+                        ↓
+                Sport ID Mapping
+                        ↓
+              activeSport (route ID)
+              activeSportApiId (API ID)
+                        ↓
+                  URL Updates
+```
+
+### API Configuration (next.config.mjs)
+
+```javascript
+images: {
+  remotePatterns: [
+    {
+      protocol: "https",
+      hostname: "au.testing.smartb.com.au",
+    },
+    {
+      protocol: "http",
+      hostname: "media.smartb.com.au",
+    },
+    {
+      protocol: "https",
+      hostname: "media.smartb.com.au",
+    },
+  ],
+}
 ```
 
 ## 🏗 Architecture
@@ -144,33 +252,67 @@ Client Component → Next.js API Route → SmartB API → Response
 ```
 smartb-fantasy-frontend/
 ├── public/
-│   └── images/
-│       └── default-team.svg        # Team logo placeholder
+│   ├── fonts/                      # Custom fonts
+│   ├── images/
+│   │   └── default-team.png.txt    # Team logo placeholder
+│   └── league-icons/               # League/competition icons
 ├── src/
 │   ├── app/
 │   │   ├── api/
 │   │   │   └── competitions/
-│   │   │       └── route.js        # API proxy route
+│   │   │       └── route.js        # API route (if needed for proxy)
 │   │   ├── fantasy/
-│   │   │   ├── page.js             # Main fantasy page component
-│   │   │   ├── layout.js           # Fantasy layout wrapper
-│   │   │   ├── loading.js          # Loading state
-│   │   │   ├── error.js            # Error boundary
-│   │   │   └── fantasy.css         # Page-specific styles
-│   │   ├── globals.css             # Global styles
+│   │   │   ├── page.js             # Main fantasy page (Client Component)
+│   │   │   ├── page.module.css     # Page-specific styles
+│   │   │   ├── fantasy.css         # Additional fantasy styles
+│   │   │   ├── loading.js          # Loading state component
+│   │   │   ├── error.js            # Error boundary component
+│   │   │   └── _components/        # Fantasy-specific components
+│   │   │       ├── CompetitionCard/
+│   │   │       │   ├── CompetitionCard.js
+│   │   │       │   └── CompetitionCard.module.css
+│   │   │       ├── Fields/
+│   │   │       │   ├── DatePicker.js
+│   │   │       │   ├── MultiSelectField.jsx
+│   │   │       │   └── SelectField.jsx
+│   │   │       ├── FiltersAccordion/
+│   │   │       │   ├── FiltersAccordion.jsx
+│   │   │       │   ├── FiltersAccordion.module.css
+│   │   │       │   └── useEventListFilters.js  # Custom hook for filter API
+│   │   │       ├── Footer/
+│   │   │       │   ├── Footer.js
+│   │   │       │   └── Footer.module.css
+│   │   │       ├── Header/
+│   │   │       │   ├── Header.js
+│   │   │       │   └── Header.module.css
+│   │   │       ├── NextEventsCarousel/
+│   │   │       │   ├── NextEventsCarousel.js
+│   │   │       │   └── NextEventsCarousel.module.css
+│   │   │       ├── PageHeader/
+│   │   │       │   ├── PageHeader.js
+│   │   │       │   └── PageHeader.module.css
+│   │   │       ├── Pagination.js
+│   │   │       ├── SportTabs/
+│   │   │       │   ├── SportTabs.js          # Dynamic sports from API
+│   │   │       │   └── SportTabs.module.css
+│   │   │       └── StatusTabs/
+│   │   │           ├── StatusTabs.jsx
+│   │   │           └── StatusTabs.module.css
+│   │   ├── globals.css             # Global styles & CSS variables
 │   │   ├── layout.js               # Root layout
-│   │   └── page.js                 # Home page
-│   ├── components/
-│   │   ├── Header.js               # Site header with navigation
-│   │   ├── Footer.js               # Site footer with links
-│   │   ├── CompetitionCard.js      # Competition display card
-│   │   ├── SportsTabs.js           # Sports filter tabs
-│   │   ├── StatusTabs.js           # Status filter tabs
-│   │   ├── Filters.js              # Contest type and filter controls
-│   │   └── Pagination.js           # Pagination controls
+│   │   ├── page.js                 # Home page
+│   │   └── page.module.css         # Home page styles
+│   ├── assets/
+│   │   ├── icons/                  # SVG icons
+│   │   └── tab-icons/              # Sport tab SVG icons
 │   └── lib/
-│       └── api.js                  # API utility functions
-├── next.config.mjs                 # Next.js configuration
+│       ├── api.js                  # API utility functions
+│       └── api/
+│           └── nextJumpSport.js    # Additional API utilities
+├── .env.local                      # Environment variables (not in repo)
+├── eslint.config.mjs               # ESLint configuration
+├── jsconfig.json                   # JavaScript configuration
+├── next.config.mjs                 # Next.js configuration (Turbopack + Webpack)
 ├── package.json                    # Dependencies
 └── README.md                       # This file
 ```
@@ -178,164 +320,417 @@ smartb-fantasy-frontend/
 ### Component Architecture
 
 **Client Components** (Interactive):
-- `FantasyPage`: Main page with state management
-- `SportsTabs`, `StatusTabs`, `Filters`: Filter controls
-- `Pagination`: Page navigation
 
-**Server Components** (Static):
+- `FantasyPage` (`page.js`): Main page with comprehensive state management
+    - `activeSport`: Current sport ID for routing (e.g., "cricket")
+    - `activeSportApiId`: API ID for API calls (e.g., 4)
+    - `activeStatus`: Competition status (upcoming/live/completed)
+    - `competitionType`: Paid or free competitions
+    - `sportData`: Fetched sports from API
+    - `filterOptions`: Dynamic filter data
+- `SportTabs`: Dynamic sport tabs loaded from API with icon mapping
+- `StatusTabs`: Status filter tabs (Upcoming/Live/Completed)
+- `FiltersAccordion`: Collapsible advanced filters with custom hook
+- `Pagination`: Page navigation with items per page control
+
+**Server Components** (Static/Optimized):
+
 - `Header`, `Footer`: Layout components
-- `CompetitionCard`: Display component
+- `CompetitionCard`: Display component for competitions
+- `PageHeader`: Breadcrumb and title component
 
-### State Management
+**Custom Hooks**:
 
-The application uses React's built-in state management:
-- `useState` for component-level state
-- `useEffect` for side effects and data fetching
-- Props drilling for component communication
+- `useEventListFilters`: Advanced filter management with caching
+    - Handles abort controllers for race condition prevention
+    - In-memory caching with Map structure
+    - Smart merge logic for scoped vs. unscoped filters
+    - Dynamic timezone handling
+
+### State Management Strategy
+
+The application uses React's built-in state management with strategic patterns:
+
+1. **Component-Level State** (`useState`):
+
+   - UI state (loading, error, isFiltersOpen)
+   - Pagination state (currentPage, itemsPerPage, totalPages)
+   - Filter state (activeSport, activeStatus, competitionType)
+1. **Dual ID System**:
+
+   - `activeSport`: Used for URL routing and UI state ("cricket", "football")
+   - `activeSportApiId`: Used for API calls (4, 8, 9, etc.)
+   - Mapping handled in SportTabs component
+1. **Side Effects** (`useEffect`, `useCallback`):
+
+   - Data fetching with dependency tracking
+   - URL synchronization with router.push
+   - Abort controller cleanup
+1. **Props Flow**:
+
+   - Unidirectional data flow
+   - Callback props for child → parent communication
+   - Minimal prop drilling (2-3 levels max)
 
 ### Styling Approach
 
-- **CSS Variables**: For theming and consistent design tokens
-- **Modular CSS**: Scoped styles per component
-- **Responsive Design**: Mobile-first approach with media queries
-- **BEM-like naming**: Clear, semantic class names
+- **CSS Variables**: Comprehensive theming system in globals.css
+- **CSS Modules**: Scoped styles per component (`.module.css`)
+- **Responsive Design**: Mobile-first with min-width media queries
+- **BEM-like naming**: Clear, semantic class names (e.g., `tab`, `tabActive`, `tabDisabled`)
+- **No External CSS Frameworks**: Lightweight, custom CSS only
+- **SVG Icons**: Loaded as React components via @svgr/webpack
 
 ## ⚡ Performance Optimizations
 
-### 1. **Server-Side Rendering (SSR)**
-- Initial page load with pre-rendered HTML
-- Improved SEO and faster First Contentful Paint (FCP)
+### 1. **Next.js 16 with Turbopack**
 
-### 2. **API Response Caching**
-- 30-second revalidation using Next.js ISR
-- Reduces API calls and improves response times
+- Lightning-fast HMR (Hot Module Replacement) in development
+- Optimized production builds with automatic code splitting
+- Fallback webpack configuration for production compatibility
 
-### 3. **Image Optimization**
+### 2. **SVG Optimization**
+
+- SVGs loaded as React components (tree-shakeable)
+- Inline SVGs reduce network requests
+- Automatic optimization with @svgr/webpack
+
+### 3. **Client-Side Caching**
+
+- Filter options cached in-memory with Map structure
+- Prevents redundant API calls
+- Smart cache invalidation based on filter parameters
+
+### 4. **Abort Controllers**
+
+- Race condition prevention in rapid filter changes
+- Automatic cleanup of pending requests
+- Improved responsiveness and reduced server load
+
+### 5. **Image Optimization**
+
 - Next.js Image component for automatic optimization
+- Multiple remote patterns configured for SmartB media
 - WebP format with fallbacks
-- Lazy loading for images below the fold
+- Lazy loading for below-the-fold images
 
-### 4. **Code Splitting**
-- Automatic code splitting by Next.js
-- Route-based chunking
-- Dynamic imports for heavy components
+### 6. **Code Splitting**
 
-### 5. **CSS Optimization**
-- Minimal CSS bundle size
+- Automatic route-based code splitting by Next.js
+- Dynamic imports for heavy components (if needed)
+- Optimized bundle sizes
+
+### 7. **CSS Optimization**
+
+- Minimal CSS bundle size with CSS Modules
 - CSS variables for reduced duplication
-- No external CSS frameworks (lightweight)
+- No external CSS frameworks = smaller bundle
 
-### 6. **Client-Side Optimizations**
-- Debounced filter changes
-- Optimistic UI updates
-- Efficient re-renders with React keys
+### 8. **State Management Optimizations**
+
+- `useCallback` for memoized functions
+- Dependency arrays for controlled re-renders
+- Optimistic UI updates where applicable
+
+### 9. **API Request Optimization**
+
+- Timezone calculated once, reused across requests
+- Query parameter encoding for URL safety
+- Conditional timezone parameter (only when needed)
 
 ### Performance Metrics Target
-- First Contentful Paint (FCP): < 1.5s
-- Largest Contentful Paint (LCP): < 2.5s
-- Cumulative Layout Shift (CLS): < 0.1
-- Time to Interactive (TTI): < 3.5s
+
+- **First Contentful Paint (FCP)**: < 1.5s
+- **Largest Contentful Paint (LCP)**: < 2.5s
+- **Cumulative Layout Shift (CLS)**: < 0.1
+- **Time to Interactive (TTI)**: < 3.5s
+- **Total Bundle Size**: < 200KB (gzipped)
 
 ## ⚠️ Known Limitations
 
-### 1. **API Endpoint Discovery**
-The exact API endpoint structure was inferred from the live site. Some fields may differ from the actual API response. To get accurate endpoints:
-- Open browser DevTools (Network tab)
-- Visit https://au.testing.smartb.com.au/fantasy
-- Filter by XHR/Fetch requests
-- Update the API proxy in `/src/app/api/competitions/route.js`
+### 1. **Authentication & User Features**
 
-### 2. **Authentication**
 - No user authentication implemented
-- "Sign Up" and "Log In" buttons are non-functional
-- Coin balance is static
+- "Sign Up" and "Log In" buttons are placeholders
 - Cannot actually enter competitions
+- User profile and history not available
 
-### 3. **Team Logos**
-- Using placeholder SVG images
-- Real team logos would require additional API endpoints or CDN integration
+### 2. **Team Logos & Media**
 
-### 4. **Real-Time Updates**
+- Using placeholder images for team logos
+- Real team logos require SmartB media CDN integration
+- Competition images may not display correctly
+
+### 3. **Real-Time Updates**
+
 - Competition status not updated in real-time
-- Requires page refresh or manual re-fetch
+- No WebSocket or polling implementation
+- Requires manual refresh for live updates
 
-### 5. **Advanced Filters**
-- "Filters" button is non-functional
-- No advanced filtering (date range, specific teams, etc.)
+### 4. **Filter Functionality**
 
-### 6. **Mobile App Features**
-- No mobile app integration
-- Push notifications not implemented
+- Advanced filters partially implemented
+- Some filter combinations may not work as expected
+- Date range filtering needs additional testing
 
-## 🔮 Future Improvements
+### 5. **Mobile Optimization**
 
-### Short Term
-- [ ] Implement actual API endpoint from Network tab inspection
-- [ ] Add team logo integration from SmartB CDN
-- [ ] Implement filter modal functionality
-- [ ] Add competition detail pages
-- [ ] Implement search functionality
+- Mobile carousel needs improvement
+- Some touch interactions could be enhanced
+- Horizontal scrolling in tables could be smoother
 
-### Medium Term
-- [ ] User authentication and authorization
-- [ ] "Enter Competition" functionality
+### 6. **Browser Compatibility**
+
+- Optimized for modern browsers (Chrome, Firefox, Safari, Edge)
+- IE11 not supported
+- Some CSS features may not work in older browsers
+
+### 7. **API Dependency**
+
+- Fully dependent on SmartB API availability
+- No offline mode or service worker
+- Limited error recovery options
+
+### 8. **Coming Soon Sports**
+
+- Baseball, American Football, Ice Hockey tabs are disabled
+- No API data available for these sports yet
+- Icons display but functionality is blocked
+
+## 🔮 TODO & Future Improvements
+
+### Immediate Priorities
+- [ ] Complete filter implementation (apply/reset logic, URL state persistence)
+- [ ] Add competition detail pages with full information
+- [ ] Implement user authentication and authorization
+- [ ] Improve mobile experience (carousel, touch interactions)
+- [ ] Add skeleton loaders for better loading states
+
+### Planned Features
 - [ ] User profile and competition history
-- [ ] Real-time updates with WebSockets or polling
-- [ ] Social sharing features
+- [ ] Real-time updates via WebSocket
+- [ ] Team logo integration from SmartB CDN
+- [ ] Search and advanced filtering
+- [ ] TypeScript migration
+- [ ] Testing suite (Jest, Playwright)
 
-### Long Term
-- [ ] TypeScript migration for type safety
-- [ ] Testing suite (Jest, React Testing Library, Playwright)
-- [ ] Storybook for component documentation
-- [ ] Analytics integration
-- [ ] Performance monitoring (Sentry, LogRocket)
-- [ ] Internationalization (i18n)
-- [ ] Dark/Light theme toggle
-- [ ] PWA features (offline support, install prompt)
+### Technical Improvements
+- [ ] Setup CI/CD pipeline
+- [ ] Add error tracking (Sentry)
+- [ ] Implement analytics
+- [ ] PWA features for offline support
+- [ ] Accessibility improvements (WCAG 2.1 AA)
+- [ ] SEO optimization
 
 ## 📝 Environment Variables
 
-Currently, no environment variables are required. For production deployment with real API keys:
+Create a `.env.local` file in the root directory for environment-specific configuration:
 
 ```env
-# .env.local
+# API Configuration
 NEXT_PUBLIC_API_BASE_URL=https://au.testing.smartb.com.au
-SMARTB_API_KEY=your_api_key_here
+NEXT_PUBLIC_FANTASY_MS_API=https://au.testing.smartb.com.au/fantasy-ms/api/v1
 ```
+
+**Note**: Currently, the application doesn't require environment variables as API endpoints are hardcoded. This section is prepared for future enhancements.
 
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
 
-1. Push code to GitHub
-2. Import project in Vercel
-3. Deploy automatically
+1. **Connect Repository**
+
+   ```bash
+   # Push code to GitHub
+   git push origin main
+   ```
+1. **Import in Vercel**
+
+   - Go to [vercel.com](https://vercel.com)
+   - Click "New Project"
+   - Import your GitHub repository
+   - Configure build settings (auto-detected)
+1. **Deploy**
+
+   - Vercel will automatically build and deploy
+   - Preview deployments for every PR
+   - Production deployment on main branch
+
+**Build Configuration**:
+
+- Build Command: `npm run build`
+- Output Directory: `.next`
+- Install Command: `npm install`
+- Node Version: 18.x or higher
 
 ### Other Platforms
 
-The application can be deployed to:
-- Netlify
-- AWS Amplify
-- Railway
-- Render
-- Self-hosted with PM2
+#### Netlify
 
-Build command: `npm run build`
-Start command: `npm start`
-Port: 3000
+```bash
+# Build command
+npm run build
+
+# Publish directory
+.next
+
+# Node version
+18
+```
+
+#### AWS Amplify
+
+- Configure build settings similar to Vercel
+- Ensure Node.js 18+ is selected
+
+#### Self-Hosted with PM2
+
+```bash
+# Build the application
+npm run build
+
+# Install PM2 globally
+npm install -g pm2
+
+# Start the application
+pm2 start npm --name "smartb-fantasy" -- start
+
+# Save PM2 configuration
+pm2 save
+
+# Setup PM2 to start on boot
+pm2 startup
+```
+
+#### Docker
+
+```dockerfile
+# Create Dockerfile
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+```
+
+```bash
+# Build and run
+docker build -t smartb-fantasy .
+docker run -p 3000:3000 smartb-fantasy
+```
+
+### Deployment Checklist
+
+- [ ] Environment variables configured
+- [ ] Build successful locally
+- [ ] All tests passing (when implemented)
+- [ ] Performance metrics checked
+- [ ] SEO tags verified
+- [ ] Error tracking setup (Sentry)
+- [ ] Analytics configured
+- [ ] HTTPS enabled
+- [ ] Custom domain configured (if applicable)
 
 ## 📄 License
 
-This project is created for technical assessment purposes.
+This project is created for development and demonstration purposes.
 
 ## 🤝 Contributing
 
-This is a technical test project. Contributions are not currently accepted.
+### Development Workflow
+
+1. **Fork the repository**
+2. **Create a feature branch**
+
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+3. **Make your changes**
+
+   - Follow existing code style
+   - Add comments for complex logic
+   - Update documentation if needed
+4. **Test your changes**
+
+   ```bash
+   npm run dev  # Test locally
+   npm run build  # Ensure it builds
+   ```
+5. **Commit with clear messages**
+
+   ```bash
+   git commit -m "feat: add new feature description"
+   ```
+6. **Push and create Pull Request**
+
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+### Code Style Guidelines
+
+- Use functional components with hooks
+- Prefer named exports over default exports (except pages)
+- Use CSS Modules for styling
+- Keep components small and focused
+- Add PropTypes or TypeScript types
+- Write self-documenting code with clear variable names
+- Add JSDoc comments for complex functions
+
+### Commit Message Convention
+
+```
+feat: Add new feature
+fix: Fix bug
+docs: Update documentation
+style: Format code
+refactor: Refactor code
+test: Add tests
+chore: Update dependencies
+```
+
+## 🐛 Bug Reports & Feature Requests
+
+Please use GitHub Issues for bug reports and feature requests:
+
+- **Bug Report**: Provide steps to reproduce, expected vs actual behavior
+- **Feature Request**: Describe the feature and use case
 
 ## 📧 Contact
 
-For questions regarding this implementation, please contact the repository owner.
+**Repository Owner**: Devvify  
+
+**GitHub**: [@Devvify](https://github.com/Devvify)  
+
+**Project**: [smartb-fantasy-frontend](https://github.com/Devvify/smartb-fantasy-frontend)
+
+## 🙏 Acknowledgments
+
+- **SmartB Team** for API access and design inspiration
+- **Next.js Team** for the amazing framework
+- **React Team** for the React library
+- **Vercel** for hosting and deployment platform
 
 ---
 
-**Note**: This is a technical test implementation and not affiliated with or endorsed by SmartB Pty Ltd. All SmartB branding and content belongs to their respective owners.
+**Note**: This project is built for development purposes and is not officially affiliated with or endorsed by SmartB Pty Ltd. All SmartB branding, logos, and content belong to their respective owners.
+
+---
+
+## 📊 Project Stats
+
+![Next.js](https://img.shields.io/badge/Next.js-16.0.10-black?style=flat&logo=next.js)
+
+![React](https://img.shields.io/badge/React-19.2.1-blue?style=flat&logo=react)
+
+![License](https://img.shields.io/badge/License-MIT-green?style=flat)
+
+**Last Updated**: December 29, 2025

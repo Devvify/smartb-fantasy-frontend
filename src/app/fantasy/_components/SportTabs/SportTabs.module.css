@@ -8,10 +8,17 @@
 .scroller {
   display: flex;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 }
 
 .scroller::-webkit-scrollbar {
   display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scroller {
+  scrollbar-width: none;
 }
 
 /* Each tab tile */
@@ -30,6 +37,7 @@
   justify-content: center;
   gap: 4px;
   border-bottom: 3px solid rgba(68, 85, 199, 1);
+  overflow: visible;
 }
 
 .tab:last-child {
@@ -52,6 +60,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
+  width: 100%;
 }
 
 /* SVG size */
@@ -59,6 +69,7 @@
   width: 50px;
   height: 50px;
   display: block;
+  overflow: visible;
 }
 
 /* Labels */
@@ -69,6 +80,8 @@
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
+  text-align: center;
+  width: 100%;
 }
 
 .labelActive {
@@ -104,12 +117,115 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .tab {
-    min-width: 130px;
-    height: 80px;
+  .wrap {
+    padding-bottom: 12px;
+    padding-left: 0;
+    padding-right: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
+
+  .wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroller {
+    overflow-x: visible;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .tab {
+    flex: none;
+    min-width: 120px;
+    height: 80px;
+    flex-shrink: 0;
+    padding: 14px 16px 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tab:first-child {
+    margin-left: 16px;
+  }
+
+  .tab:last-child {
+    margin-right: 16px;
+  }
+
   .icon {
-    width: 46px;
-    height: 46px;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+
+  .iconWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 2px 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroller {
+    overflow-x: visible;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .tab {
+    flex: none;
+    min-width: 100px;
+    height: 70px;
+    padding: 12px 12px 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tab:first-child {
+    margin-left: 12px;
+  }
+
+  .tab:last-child {
+    margin-right: 12px;
+  }
+
+  .icon {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 12px;
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+
+  .iconWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .badge {
+    font-size: 9px;
+    padding: 1px 4px;
+    bottom: -10px;
   }
 }

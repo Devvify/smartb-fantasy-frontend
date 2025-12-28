@@ -16,7 +16,6 @@
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
   background: rgba(248, 248, 248, 1);
 }
 
@@ -234,76 +233,117 @@
   font-size: 1.1rem;
 }
 
-.pagination {
+/* Pagination bar aligned to the right like screenshot */
+.paginationBar {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  padding: 14px 0;
+}
+
+.paginationRight {
+  display: inline-flex;
   align-items: center;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.2);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  gap: 2rem;
-  flex-wrap: wrap;
+  gap: 14px;
 }
 
-.paginationInfo {
-  display: flex;
+/* Results per page */
+.perPage {
+  display: inline-flex;
   align-items: center;
-  gap: 1rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.95rem;
+  gap: 10px;
 }
 
-.pageSelect {
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  color: #fff;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.perPageLabel {
+  font-size: 14px;
+  color: #111827;
 }
 
-.pageSelect:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(0, 212, 255, 0.5);
-}
-
-.paginationControls {
-  display: flex;
+.selectWrap {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 1.5rem;
 }
 
-.pageBtn {
-  padding: 0.75rem 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.perPageSelect {
+  height: 34px;
+  min-width: 72px;
+  padding: 0 34px 0 12px;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.9rem;
+  background: #fff;
+  color: #111827;
+  font-size: 14px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  appearance: none;
 }
 
-.pageBtn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  border-color: #00d4ff;
-  transform: translateY(-2px);
+.selectCaret {
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+  color: #6b7280;
 }
 
-.pageBtn:disabled {
-  opacity: 0.3;
+/* Pager */
+.pager {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagerBtn {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.pagerBtn:disabled {
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
-.pageInfo {
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 600;
-  font-size: 0.95rem;
+.pageNumber {
+  width: 44px;
+  height: 34px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+  text-align: center;
+  font-size: 14px;
 }
+
+.pageNumber::-webkit-inner-spin-button,
+.pageNumber::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.pageNumber[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.ofText {
+  font-size: 14px;
+  color: #111827;
+  margin-left: 2px;
+}
+
+.totalPages {
+  color: #111827;
+  font-weight: 500;
+}
+
 
 .contentWrapper {
   display: flex;
