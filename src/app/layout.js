@@ -15,6 +15,12 @@ const apotekCompRegular = localFont({
   display: "swap",
 });
 
+const veneerCleanRegular = localFont({
+  src: "../../public/fonts/VeneerCleanRegular.otf",
+  variable: "--font-veneer-clean-regular",
+  display: "swap",
+});
+
 export const metadata = {
   title: "SmartB Fantasy - All Competitions",
   description: "Join fantasy sports competitions and win SmartB coins. Play cricket, football, basketball, and more.",
@@ -24,7 +30,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
-      <body className={`${apotekCompRegular.variable} ${inter.variable}`}>
+      <body className={`${apotekCompRegular.variable} ${inter.variable} ${veneerCleanRegular.variable}`}>
         {children}
       </body>
     </html>

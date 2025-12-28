@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" data-name="Group 109547">
+    <defs>
+        <linearGradient id="activeCricketIcon_svg__a" x1="0.5" x2="0.5" y2="1"
+            gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fc4714"></stop>
+            <stop offset="1" stop-color="#003764"></stop>
+        </linearGradient>
+    </defs>
+    <rect width="50" height="50" fill="url(#activeCricketIcon_svg__a)" data-name="Rectangle 58092"
+        rx="25"></rect>
+    <g data-name="Group 115290">
+        <g data-name="Group 40522">
+            <path fill="#fff" fill-rule="evenodd"
+                d="M8.878 31.243a3.419 3.419 0 1 0 0-4.837 3.416 3.416 0 0 0 0 4.837m.392-.416a2.847 2.847 0 0 1 4.026-4.026c.05.05.1.1.147.159a2.846 2.846 0 0 0-4.011 4.018c-.055-.048-.109-.1-.159-.147m20.469-13.279 2.259.468 1.877 1.881.468 2.259c.04.195.14.371 0 .511L16.878 40.139c-.14.14-.331.078-.511 0-3.072-1.353-3.255-1.536-4.608-4.608-.081-.183-.14-.371 0-.514L29.23 17.552c.14-.14.316-.04.511 0m4.582 1.9 7.684-7.674a.4.4 0 0 0 0-.564l-1.318-1.319a.4.4 0 0 0-.564 0l-7.682 7.683Z"
+                data-name="Path 31727"></path>
+        </g>
+    </g>
+</svg>

@@ -2,33 +2,29 @@
   background: #ffffff;
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.competitionCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .cardHeader {
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #0d4d7d 0%, #1a5c8a 100%);
+  background-image: url("/cardTopCurve.7d77797a.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
   position: relative;
-  clip-path: polygon(0 0, 100% 0, 98% 100%, 0% 100%);
 }
 
 .leagueName {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 22.4px;
   color: #ffffff;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
 }
 
 .leagueName::before {
-  content: '✓';
+  content: "✓";
   color: #ffffff;
   font-weight: 700;
 }
@@ -88,18 +84,20 @@
 }
 
 .matchDate {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #666666;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(93, 93, 93, 1);
   text-align: center;
   text-transform: uppercase;
 }
 
 .matchTime {
-  font-size: 2.5rem;
-  font-weight: 700;
+  font-family: var(--font-apotek-comp-regular);
+  font-size: 61.47px;
+  font-weight: 400;
   color: #1a1a1a;
   letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .matchStatus {
@@ -128,7 +126,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -142,7 +141,7 @@
   align-items: center;
   padding: 1.5rem 2rem;
   border-top: 1px solid #e0e0e0;
-  background: #f8f9fa;
+  background-color: rgb(231, 233, 236, 1);
   gap: 2rem;
 }
 
@@ -241,4 +240,3 @@
     order: 3;
   }
 }
-

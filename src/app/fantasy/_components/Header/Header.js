@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import styles from "./Header.module.css";
+import HomeIcon from "@/assets/icons/home.svg";
+import LiveIcon from "@/assets/icons/live.svg";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,25 +40,13 @@ export default function Header() {
             onClick={() => setIsLiveModalOpen(true)}
             className={styles.liveButton}
           >
-            <Image
-              src="/live.svg"
-              alt="Live"
-              width={80}
-              height={36}
-              className={styles.liveIcon}
-            />
+            <LiveIcon className={styles.liveIcon} />
           </button>
         </nav>
 
         <div className={styles.actions}>
           <Link href="/" className={styles.homeSmartBIcon}>
-            <Image
-              src="/home.svg"
-              alt="Home"
-              width={48}
-              height={48}
-              className={styles.homeIcon}
-            />
+            <HomeIcon className={styles.homeIcon} />
             <Image
               src="/SmartBLogo.png"
               alt="SmartB"

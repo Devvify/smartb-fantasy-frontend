@@ -17,13 +17,6 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
-  /* background: rgba(255, 255, 255, 1); */
-}
-
-.pageHeader {
-  padding: 33px 2rem;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
   background: rgba(248, 248, 248, 1);
 }
 
@@ -37,98 +30,138 @@
 }
 
 .title {
+  font-family: var(--font-veneer-clean-regular);
   font-size: 2rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 2rem 0;
+  font-weight: 400;
+  color: rgba(25, 25, 25, 1);
+  /* margin: 0 0 2rem 0; */
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.coinInfo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: rgba(255, 215, 0, 0.1);
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 215, 0, 0.3);
-}
 
 .coinIcon {
   width: 32px;
   height: 32px;
 }
 
-.coinText {
-  font-weight: 700;
-  color: #ffd700;
-  font-size: 1rem;
-}
-
-.controls {
+/* --- Controls row (left toggle + right filters) --- */
+.controlsRow {
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  gap: 16px;
+
+  background: #fff;
+  padding: 14px 24px;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+/* --- Toggle container (light grey group like screenshot) --- */
+.typeToggleWrap {
+  display: inline-flex;
   align-items: center;
-  margin-bottom: 2rem;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 12px;
+
+  background: #eef0f3;
+  border-radius: 8px;
+  padding: 8px;
 }
 
-.typeToggle {
-  display: flex;
-  gap: 0.5rem;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 0.5rem;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.toggleBtn {
-  padding: 0.75rem 1.5rem;
+/* --- Each toggle pill --- */
+.typePill {
+  border: 0;
   background: transparent;
-  border: none;
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.6);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
+  border-radius: 6px;
+
+  padding: 10px 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
+
+  color: #8a97a6; /* inactive grey/blue */
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
-}
 
-.toggleBtn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.toggleBtnActive {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 212, 255, 0.3);
-}
-
-.filterBtn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  gap: 4px;
+
 }
 
-.filterBtn:hover {
-  background: rgba(0, 212, 255, 0.1);
-  border-color: rgba(0, 212, 255, 0.3);
-  color: #00d4ff;
+/* --- Active pill (dark navy) --- */
+.typePillActive {
+  background: #0b3a63;
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
+
+.typePill img {
+  display: block;
+}
+
+
+/* SmartCoins word styling */
+.smartCoinsWord {
+  text-transform: none;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.pillText {
+  font-weight: 900;
+}
+
+/* --- Filters button (right) --- */
+.filtersBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+
+  background: #eef0f3;
+  color: #0b1b2b;
+
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filtersBtn:hover {
+  filter: brightness(0.98);
+}
+
+.filtersText {
+  line-height: 1;
+}
+
+/* --- Mobile --- */
+@media (max-width: 768px) {
+  .controlsRow {
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .typeToggleWrap {
+    gap: 8px;
+    padding: 6px;
+  }
+
+  .typePill {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  .filtersBtn {
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+}
+
 
 .grid {
   display: flex;

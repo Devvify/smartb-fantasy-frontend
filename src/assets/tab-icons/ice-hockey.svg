@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+    <defs>
+        <linearGradient id="iceHockey_svg__a" x1="0.5" x2="0.5" y2="1"
+            gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fc4714"></stop>
+            <stop offset="1" stop-color="#003764"></stop>
+        </linearGradient>
+        <clipPath id="iceHockey_svg__b">
+            <path fill="url(#iceHockey_svg__a)" d="M0 0h28.925v23.958H0z"
+                data-name="Rectangle 60338"></path>
+        </clipPath>
+    </defs>
+    <rect width="50" height="50" fill="#e6e7e7" data-name="Rectangle 58092" rx="25"></rect>
+    <g data-name="Group 115357">
+        <g clip-path="url(#iceHockey_svg__b)" data-name="Group 114497"
+            transform="translate(10.538 13.021)">
+            <path fill="url(#iceHockey_svg__a)" fill-rule="evenodd"
+                d="M3.3 13.049C-.244 12.957-.392 15.325.382 17.9s1.367 4.463 4.27 4.657c.456.033 1.115.023 1.925 0l-.649-2.3c-.331-1.161.728-2.129 1.594-2.7A13.8 13.8 0 0 1 11.4 15.85c1.571-.444 6.32-1.423 6.979.88.3 1.055.593 2.111.88 3.154a1.8 1.8 0 0 1-.318 1.538c1.2-.16 2.151-.308 2.676-.421 2.426-.528 3.3-3.211 4.076-6.217s3.23-14.5 3.23-14.5L24.657 0S22.8 7.424 21.923 9.553a6.88 6.88 0 0 1-5.623 4.169c-2.253-.033-9.461-.593-13-.682m8.357 3.695c2.948-.83 5.556-.718 5.83.25s-1.89 2.424-4.84 3.256-5.545.718-5.818-.25 1.891-2.412 4.829-3.242m6.717 3.394c.278.97-1.89 2.424-4.824 3.256s-5.556.728-5.83-.239l-.5-1.788a10.3 10.3 0 0 0 5.693-.227 10.3 10.3 0 0 0 4.965-2.778Z"
+                data-name="Path 182969" transform="translate(-.001)"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,41 @@
+.wrap {
+  position: relative;
+  display: flex;
+  gap: 28px;
+  align-items: flex-end;
+  background: #fff;
+  padding: 18px 24px 0;
+}
+
+.tab {
+  position: relative;
+  border: 0;
+  background: transparent;
+  padding: 0 0 14px;
+  font-family: var(--font-apotek-comp-regular);
+  font-size: 30px;
+  text-transform: uppercase;
+
+  color: #9aa3af; /* inactive grey */
+  cursor: pointer;
+  line-height: 36px;
+}
+
+.tab:hover {
+  color: #4b5563;
+}
+
+/* active underline like screenshot */
+.active {
+  color: rgba(0, 55, 100, 1);
+}
+
+.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 4px;
+  background: rgba(68, 85, 199, 1);
+}

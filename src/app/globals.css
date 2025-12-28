@@ -13,7 +13,7 @@ body {
 }
 
 body {
-  font-family: var(--font-inter), var(--font-apotek-comp-regular), -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: var(--font-inter), var(--font-apotek-comp-regular), var(--font-veneer-clean-regular), -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1,16 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import NextEventsCarousel from "@/components/NextEventsCarousel";
-import SportTabs from "@/components/SportTabs";
-import StatusTabs from "@/components/StatusTabs";
-import CompetitionCard from "@/components/CompetitionCard";
+import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import Header from "@/app/fantasy/_components/Header/Header";
+import Footer from "@/app/fantasy/_components/Footer/Footer";
+import NextEventsCarousel from "@/app/fantasy/_components/NextEventsCarousel/NextEventsCarousel";
+import PageHeader from "@/app/fantasy/_components/PageHeader/PageHeader";
+import SportTabs from "@/app/fantasy/_components/SportTabs/SportTabs";
+import StatusTabs from "@/app/fantasy/_components/StatusTabs/StatusTabs";
+import FiltersAccordion from "@/app/fantasy/_components/FiltersAccordion/FiltersAccordion";
+import CompetitionCard from "@/app/fantasy/_components/CompetitionCard/CompetitionCard";
 import styles from "./page.module.css";
+import Image from "next/image";
+import { fetchSportBySportTypeId } from "@/lib/api";
 
 export default function FantasyPage() {
+  const router = useRouter();
   const [activeSport, setActiveSport] = useState("all");
+  const [activeSportApiId, setActiveSportApiId] = useState(null);
   const [activeStatus, setActiveStatus] = useState("upcoming");
   const [competitionType, setCompetitionType] = useState("paid");
   const [competitions, setCompetitions] = useState([]);
@@ -19,44 +26,121 @@ export default function FantasyPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [filterOptions, setFilterOptions] = useState(null);
+  const [loadingFilters, setLoadingFilters] = useState(false);
+  const [sportData, setSportData] = useState(null);
 
+  // Fetch sport data with sportTypeId=2
   useEffect(() => {
-    fetchCompetitions();
-  }, [activeSport, activeStatus, competitionType, currentPage, itemsPerPage]);
+    const fetchSportData = async () => {
+      try {
+        const data = await fetchSportBySportTypeId(2);
+        setSportData(data);
+        console.log("Sport data with sportTypeId=2:", data);
+      } catch (err) {
+        console.error("Error fetching sport data:", err);
+      }
+    };
 
-  const fetchCompetitions = async () => {
+    fetchSportData();
+  }, []);
+
+  const fetchFilterOptions = useCallback(async () => {
+    if (filterOptions) return;
+
+    setLoadingFilters(true);
+    try {
+      const response = await fetch(
+        `https://au.testing.smartb.com.au/fantasy-ms/api/v1/fantasy/event-list/filters?status=${activeStatus}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch filter options");
+      }
+
+      const result = await response.json();
+      setFilterOptions(result);
+    } catch (err) {
+      console.error("Error fetching filter options:", err);
+    } finally {
+      setLoadingFilters(false);
+    }
+  }, [activeStatus, filterOptions]);
+
+  const fetchCompetitions = useCallback(async () => {
     setLoading(true);
     setError(null);
 
     try {
-      // Build query parameters
-      const params = new URLSearchParams({
-        sport: activeSport,
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      // Map status to numeric value
+      const statusMap = {
+        upcoming: "1",
+        live: "2",
+        completed: "3",
+      };
+
+      // Build API query parameters
+      const apiParams = new URLSearchParams({
+        perPage: itemsPerPage.toString(),
+        page: currentPage.toString(),
+        compType: activeSport,
+        SportId: activeSportApiId ? activeSportApiId.toString() : "",
+        eventType: competitionType,
         status: activeStatus,
-        type: competitionType,
-        page: currentPage,
-        limit: itemsPerPage,
+        comp_id: competitionType === "paid" ? "1" : "2",
+        timezone: encodeURIComponent(timezone),
       });
 
-      const response = await fetch(`/api/competitions?${params}`);
+      const response = await fetch(
+        `https://au.testing.smartb.com.au/fantasy-ms/api/v1/fantasy/event-list?${apiParams}`
+      );
 
       if (!response.ok) {
         throw new Error("Failed to fetch competitions");
       }
 
       const data = await response.json();
-      setCompetitions(data.competitions || []);
-      setTotalPages(data.totalPages || 1);
+      setCompetitions(data.result || []);
+
+      // Calculate total pages from count
+      const totalCount = data.count || 0;
+      const calculatedPages = Math.ceil(totalCount / itemsPerPage);
+      setTotalPages(calculatedPages || 1);
+
+      // Update browser URL
+      const urlParams = new URLSearchParams({
+        sports: activeSport,
+        status: statusMap[activeStatus] || "1",
+        contestType: competitionType,
+      });
+      router.push(`/fantasy?${urlParams}`, { scroll: false });
     } catch (err) {
       setError(err.message);
       console.error("Error fetching competitions:", err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [
+    activeSport,
+    activeSportApiId,
+    activeStatus,
+    competitionType,
+    currentPage,
+    itemsPerPage,
+    router,
+  ]);
 
-  const handleSportChange = (sport) => {
-    setActiveSport(sport);
+  useEffect(() => {
+    fetchCompetitions();
+  }, [fetchCompetitions]);
+
+  const handleSportChange = (apiId, id) => {
+    console.log('Sport changed - apiId:', apiId, 'id:', id);
+    setActiveSport(id);
+    setActiveSportApiId(apiId);
     setCurrentPage(1);
   };
 
@@ -80,6 +164,17 @@ export default function FantasyPage() {
     setCurrentPage(1);
   };
 
+  const handleFiltersApply = (filters) => {
+    console.log("Filters applied:", filters);
+    setIsFiltersOpen(false);
+    // Add filter logic here
+  };
+
+  const handleFiltersReset = () => {
+    console.log("Filters reset");
+    // Add reset logic here
+  };
+
   return (
     <div className={styles.page}>
       <NextEventsCarousel />
@@ -88,51 +183,89 @@ export default function FantasyPage() {
 
       <main className={styles.main}>
         <div className={styles.container}>
-          <div className={styles.pageHeader}>
-            <h1 className={styles.title}>All Competitions</h1>
-            <SportTabs
-              activeSport={activeSport}
-              onSportChange={handleSportChange}
-            />
-          </div>
+          <PageHeader
+            breadcrumbs={[
+              { label: "HOME", href: "/" },
+              { label: "SMARTPLAY", href: "/fantasy" },
+              { label: "ALL COMPETITIONS" },
+            ]}
+            title="All Competitions"
+          />
+
+          <SportTabs
+            activeSport={activeSport}
+            onSportChange={handleSportChange}
+            sportData={sportData}
+          />
 
           <StatusTabs
             activeStatus={activeStatus}
             onStatusChange={handleStatusChange}
           />
 
-          <div className={styles.controls}>
-            <div className={styles.typeToggle}>
+          <div className={styles.controlsRow}>
+            <div className={styles.typeToggleWrap}>
               <button
-                className={`${styles.toggleBtn} ${
-                  competitionType === "paid" ? styles.toggleBtnActive : ""
+                type="button"
+                className={`${styles.typePill} ${
+                  competitionType === "paid" ? styles.typePillActive : ""
                 }`}
                 onClick={() => handleCompetitionTypeChange("paid")}
               >
-                COMPETITIONS
+                <Image
+                  src="/light-smart-b-coins.png"
+                  alt="SmartCoins"
+                  width={83}
+                  height={19}
+                  priority
+                />
+                <span className={styles.pillText}>COMPETITIONS</span>
               </button>
+
               <button
-                className={`${styles.toggleBtn} ${
-                  competitionType === "free" ? styles.toggleBtnActive : ""
+                type="button"
+                className={`${styles.typePill} ${
+                  competitionType === "free" ? styles.typePillActive : ""
                 }`}
                 onClick={() => handleCompetitionTypeChange("free")}
               >
-                FREE COMPETITIONS
+                <span className={styles.pillText}>FREE COMPETITIONS</span>
               </button>
             </div>
 
-            <button className={styles.filterBtn}>
+            <button
+              type="button"
+              className={styles.filtersBtn}
+              onClick={() => {
+                if (!isFiltersOpen) {
+                  fetchFilterOptions();
+                }
+                setIsFiltersOpen(!isFiltersOpen);
+              }}
+            >
+              <span className={styles.filtersText}>Filters</span>
               <svg
-                width="20"
-                height="20"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
-                fill="currentColor"
+                aria-hidden="true"
+                style={{
+                  transform: isFiltersOpen ? "rotate(180deg)" : "rotate(0)",
+                  transition: "transform 0.3s",
+                }}
               >
-                <path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z" />
+                <path fill="currentColor" d="M7 10l5 5 5-5H7z" />
               </svg>
-              Filters
             </button>
           </div>
+
+          <FiltersAccordion
+            isOpen={isFiltersOpen}
+            onApply={handleFiltersApply}
+            onReset={handleFiltersReset}
+            filterOptions={{ ...filterOptions, status: activeStatus }}
+            loading={loadingFilters}
+          />
 
           {loading && (
             <div className={styles.loading}>

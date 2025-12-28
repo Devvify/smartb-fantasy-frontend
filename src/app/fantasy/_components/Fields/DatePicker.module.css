@@ -1,0 +1,170 @@
+.datePickerWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.inputWrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.dateInput {
+  width: 100%;
+  padding: 12px 40px 12px 16px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #666;
+  background: #fff;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.dateInput:focus {
+  outline: none;
+  border-color: #5c6ac4;
+}
+
+.dateInput::placeholder {
+  color: #999;
+}
+
+.calendarIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  pointer-events: none;
+}
+
+.calendarPopup {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  z-index: 10000;
+  min-width: 300px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.calendarHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.navButton {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.navButton:hover {
+  background: #f0f0f0;
+}
+
+.monthYear {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.daysOfWeek {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.dayOfWeek {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  padding: 8px 4px;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.dayCell {
+  aspect-ratio: 1;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  border-radius: 4px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+}
+
+.dayCell:hover {
+  background: #f0f0f0;
+}
+
+.dayCell.otherMonth {
+  color: #ccc;
+}
+
+.dayCell.today {
+  background: #e8f0fe;
+  color: #1a73e8;
+  font-weight: 600;
+}
+
+.dayCell.selected {
+  background: #333;
+  color: #fff;
+  font-weight: 600;
+}
+
+.dayCell.selected:hover {
+  background: #222;
+}
+
+.dayCell.disabled {
+  color: #e0e0e0;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dayCell.disabled:hover {
+  background: transparent;
+}
+
+@media (max-width: 768px) {
+  .calendarPopup {
+    min-width: 280px;
+  }
+}
