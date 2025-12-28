@@ -1,0 +1,191 @@
+.panel {
+  background: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  overflow: visible;
+}
+
+.loadingWrapper {
+  padding: 40px 20px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+/* Top right actions like screenshot */
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+}
+
+.reset {
+  background: transparent;
+  border: 0;
+  color: #003764;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 8px 10px;
+}
+
+.apply {
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 6px;
+  border: 0;
+  background: #003764;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* 4 fields in one row */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 18px;
+  padding: 0 20px 18px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #111827;
+}
+
+/* field container */
+.field {
+  position: relative;
+}
+
+/* shared sizing */
+.input,
+.select {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #dfe6f3;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  padding: 0 44px 0 42px; /* left space for icon (date), right for caret */
+  outline: none;
+}
+
+/* sport/league/team selects don’t need left icon */
+.select {
+  padding-left: 14px;
+  padding-right: 44px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;  cursor: pointer;
+}
+
+/* Select option styling */
+.select option {
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.select option:checked {
+  background: linear-gradient(0deg, #7dd3c0 0%, #7dd3c0 100%);
+  color: #111827;
+  font-weight: 600;
+}
+
+.select option:hover {
+  background: #f3f4f6;}
+
+.input:focus,
+.select:focus {
+  border-color: rgba(0, 55, 100, 0.7);
+  box-shadow: 0 0 0 3px rgba(0, 55, 100, 0.12);
+}
+
+/* Disabled grey like screenshot */
+.select:disabled {
+  background: #f9fafb;
+  color: #9ca3af;
+  border-color: #e5e7eb;
+  cursor: not-allowed;
+}
+
+.select:disabled option {
+  color: #9ca3af;
+}
+
+/* Right caret */
+.caret {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9aa3af;
+  pointer-events: none;
+}
+
+/* Left icon for date */
+.icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9aa3af;
+  pointer-events: none;
+}
+
+/* Force placeholder for date */
+.datePlaceholder {
+  position: absolute;
+  left: 42px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: 600;
+  color: #9aa3af;
+  pointer-events: none;
+}
+
+/* Hide native date indicator but keep click area */
+.input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+/* responsive */
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    padding: 12px 14px;
+  }
+
+  .grid {
+    padding: 0 14px 14px;
+  }
+}

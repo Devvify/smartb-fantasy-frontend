@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" data-name="Group 109547">
+    <defs>
+        <linearGradient id="activeSoccerIcon_svg__a" x1="0.5" x2="0.5" y2="1"
+            gradientUnits="objectBoundingBox">
+            <stop offset="0" stop-color="#fc4714"></stop>
+            <stop offset="1" stop-color="#003764"></stop>
+        </linearGradient>
+        <clipPath id="activeSoccerIcon_svg__b">
+            <path fill="#fff" d="M0 0h29.766v29.765H0z" data-name="Rectangle 58171"></path>
+        </clipPath>
+    </defs>
+    <rect width="50" height="50" fill="url(#activeSoccerIcon_svg__a)" data-name="Rectangle 58092"
+        rx="25"></rect>
+    <g data-name="Group 115293">
+        <g fill="#fff" clip-path="url(#activeSoccerIcon_svg__b)" data-name="Group 110295"
+            transform="translate(10.117 10.117)">
+            <path
+                d="M29.122 10.535a15 15 0 0 0-1.679-3.642.4.4 0 0 0-.055-.1 14.83 14.83 0 0 0-9.082-6.4c-.006-.009-.021-.009-.043-.009a15 15 0 0 0-6.749 0h-.076a14.86 14.86 0 0 0-9.05 6.389c-.022.033-.044.076-.065.109A14.9 14.9 0 0 0 0 14.525v.349a14.84 14.84 0 0 0 4.034 10.184l.076.076a15 15 0 0 0 1.112 1.058 14.86 14.86 0 0 0 18.143.916 15 15 0 0 0 2.29-1.973l.076-.076a14.8 14.8 0 0 0 4.034-10.184v-.36a15 15 0 0 0-.643-3.98M1.308 14.253a13.65 13.65 0 0 1 1.985-6.477l5.234-.785 1.907 2.759-2.115 6.476-3.173 1.363ZM14.24 24.916 9.377 27.3a13.5 13.5 0 0 1-4.2-2.922l.458-5.593v-.011l3.107-1.319 5.5 3.991Zm-2.715-15.93v-.01l-1.93-2.737 2.464-4.656a13.7 13.7 0 0 1 5.648 0l2.464 4.656-1.93 2.737Zm12.6 15.842a14 14 0 0 1-1.504 1.211 10 10 0 0 1-1.09.687q-.556.31-1.145.578l-4.863-2.388v-3.467l5.5-3.991 3.107 1.319v.011l.458 5.593c-.153.153-.305.305-.458.447m.5-7.251-3.184-1.352h-.011l-2.093-6.486 1.9-2.748 5.234.785a13.65 13.65 0 0 1 1.984 6.476Z"
+                data-name="Path 180968"></path>
+            <path d="M14.24 24.916v.011l-4.863 2.377Z" data-name="Path 180969"></path>
+            <path d="m20.386 27.304-4.86-2.377v-.011Z" data-name="Path 180970"></path>
+            <path d="m10.434 9.75-2.1 6.476h-.015Z" data-name="Path 180971"></path>
+        </g>
+    </g>
+</svg>

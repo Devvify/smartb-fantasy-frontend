@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+  <defs>
+    <!-- ACTIVE (your exact gradient) -->
+    <linearGradient id="activeFeaturedIcon_svg__a" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fed1c4" />
+      <stop offset="0.143" stop-color="#fc4714" />
+      <stop offset="0.912" stop-color="#003764" />
+      <stop offset="1" stop-color="#335f83" />
+    </linearGradient>
+
+    <!-- INACTIVE (your exact gradients) -->
+    <linearGradient id="inactiveA" x1="0.5" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#fc4714" />
+      <stop offset="1" stop-color="#c24427" />
+    </linearGradient>
+    <linearGradient id="inactiveB" x1="0.5" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#fc4714" />
+      <stop offset="1" stop-color="#c54325" />
+    </linearGradient>
+    <linearGradient id="inactiveC" x1="0.5" x2="0.5" y2="1">
+      <stop offset="0" stop-color="#fc4714" />
+      <stop offset="1" stop-color="#003764" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background (inactive default = grey) -->
+  <rect class="bg" width="50" height="50" rx="25" fill="#e6e7e7" />
+
+  <!-- Foreground (inactive default colors) -->
+  <g class="fg">
+    <path fill="url(#inactiveA)"
+      d="M10.568 10.421a.77.77 0 0 0-.707.451l-.149.327-.365.778L7.574 15.8H.6a.8.8 0 0 0-.538.21l4.807-5.337a.79.79 0 0 1 .584-.256Z"
+      transform="translate(11.628 10.01)" />
+    <path fill="url(#inactiveB)"
+      d="M9.06 11.526a.8.8 0 0 0 .07-.327.78.78 0 0 0-.443-.707.8.8 0 0 0-.327-.07h5.446a.77.77 0 0 0-.77.777.8.8 0 0 0 .07.327l.21.451 1.772 3.823H7.077l1.773-3.823Z"
+      transform="translate(13.834 10.011)" />
+    <path fill="url(#inactiveC)"
+      d="M26.617 17.064 13.946 33.258a.6.6 0 0 0 .1-.21l.032-.108.607-1.89.676-2.132 3.19-9.995a.78.78 0 0 0-.506-.979.794.794 0 0 0-.981.5l-3.756 11.812-3.756-11.808a.78.78 0 0 0-1.485.475l3.189 9.995.677 2.132.606 1.89a.9.9 0 0 0 .133.318L0 17.064a.8.8 0 0 0 .615.3h21.856a.778.778 0 1 0 0-1.556h-3.438l-1.773-3.831-.365-.778-.147-.326a.79.79 0 0 0-.716-.452h5.126a.78.78 0 0 1 .576.258l4.845 5.383a.775.775 0 0 1 .039 1"
+      transform="translate(11.609 10.01)" />
+    <path fill="#fc4714"
+      d="m30.533 10.526-2.346 2.346.94 3.29a.22.22 0 0 1-.087.242.22.22 0 0 1-.256 0l-3.287-2.349-3.285 2.347a.22.22 0 0 1-.256 0 .23.23 0 0 1-.087-.242l.94-3.29-2.345-2.344a.222.222 0 0 1 .156-.379h3.269l1.407-3.279a.22.22 0 0 1 .2-.134.22.22 0 0 1 .2.134l1.416 3.28h3.269a.222.222 0 0 1 .156.379" />
+    <path fill="#fc4714"
+      d="m38.325 14.587-1.373 1.374.457 1.831a.22.22 0 0 1-.091.237.23.23 0 0 1-.256-.007l-1.819-1.367-1.818 1.367a.22.22 0 0 1-.255.007.21.21 0 0 1-.092-.237l.457-1.831-1.376-1.374a.222.222 0 0 1 .158-.379h1.815l.942-1.831a.23.23 0 0 1 .2-.12.22.22 0 0 1 .2.125l.887 1.826h1.808a.222.222 0 0 1 .156.379" />
+    <path fill="#fc4714"
+      d="m18.835 14.587-1.374 1.374.457 1.831a.22.22 0 0 1-.093.237.22.22 0 0 1-.254-.007l-1.818-1.367-1.818 1.367a.22.22 0 0 1-.256.007.215.215 0 0 1-.091-.237l.459-1.831-1.378-1.374a.222.222 0 0 1 .155-.379h1.823l.942-1.831a.23.23 0 0 1 .2-.12.22.22 0 0 1 .2.125l.887 1.826h1.803a.222.222 0 0 1 .156.379" />
+  </g>
+</svg>

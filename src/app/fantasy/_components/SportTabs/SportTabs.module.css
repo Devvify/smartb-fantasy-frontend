@@ -1,0 +1,231 @@
+.wrap {
+  background: #fff;
+  border-bottom: 1px solid rgba(212, 214, 216, 1);
+  padding-bottom: 16px;
+}
+
+/* Horizontal strip */
+.scroller {
+  display: flex;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.scroller {
+  scrollbar-width: none;
+}
+
+/* Each tab tile */
+.tab {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100px;
+  padding: 18px 34px 8px;
+  background: #fff;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-bottom: 3px solid rgba(68, 85, 199, 1);
+  overflow: visible;
+}
+
+.tab:last-child {
+  border-right: 0;
+}
+
+.tabActive {
+  background-image: linear-gradient(
+    180deg,
+    rgba(2, 56, 100, 0.21),
+    rgba(68, 85, 199, 0.21) 33%,
+    rgba(116, 81, 152, 0.21) 60%,
+    rgba(192, 75, 78, 0.21) 81%,
+    rgba(252, 71, 20, 0.21)
+  );
+}
+
+/* Icon wrapper */
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  width: 100%;
+}
+
+/* SVG size */
+.icon {
+  width: 50px;
+  height: 50px;
+  display: block;
+  overflow: visible;
+}
+
+/* Labels */
+.label {
+  font-family: var(--font-veneer-clean-regular);
+  font-size: 16px;
+  color: #0b1b2b;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+  width: 100%;
+}
+
+.labelActive {
+  color: rgba(0, 55, 100, 1);
+}
+
+/* Coming soon pill – sits on the blue line */
+.badge {
+  position: absolute;
+  bottom: -11px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f36a17;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 300;
+  padding: 2px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Disabled tabs */
+.tabDisabled {
+  opacity: 1;
+  /* cursor: not-allowed; */
+}
+
+/* Hover (match subtle style) */
+.tab:hover:not(.tabDisabled) .label {
+  color: rgba(68, 85, 199, 1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .wrap {
+    padding-bottom: 12px;
+    padding-left: 0;
+    padding-right: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroller {
+    overflow-x: visible;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .tab {
+    flex: none;
+    min-width: 120px;
+    height: 80px;
+    flex-shrink: 0;
+    padding: 14px 16px 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tab:first-child {
+    margin-left: 16px;
+  }
+
+  .tab:last-child {
+    margin-right: 16px;
+  }
+
+  .icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+
+  .iconWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 2px 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .scroller {
+    overflow-x: visible;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .tab {
+    flex: none;
+    min-width: 100px;
+    height: 70px;
+    padding: 12px 12px 8px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tab:first-child {
+    margin-left: 12px;
+  }
+
+  .tab:last-child {
+    margin-right: 12px;
+  }
+
+  .icon {
+    width: 36px;
+    height: 36px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-size: 12px;
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+
+  .iconWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .badge {
+    font-size: 9px;
+    padding: 1px 4px;
+    bottom: -10px;
+  }
+}
