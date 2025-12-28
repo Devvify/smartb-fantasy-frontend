@@ -17,8 +17,8 @@ export default function Header() {
             <Image
               src="/smartPlayLogo.png"
               alt="SmartB"
-              width={128}
-              height={40}
+              width={100}
+              height={30}
               priority
             />
           </Link>
@@ -26,7 +26,7 @@ export default function Header() {
 
         <nav className={styles.nav}>
           <Link href="/fantasy" className={styles.navLinkActive}>
-            ALL COMPETITIONS
+            All Competitions
           </Link>
           <Link href="/" className={styles.navLink}>
             FAQs
@@ -117,8 +117,16 @@ export default function Header() {
               <h2 className={styles.modalTitle}>Log In Required</h2>
               <p className={styles.modalDescription}>
                 Please log in with your{" "}
-                <span className={styles.brandName}>SmartB</span> account for
-                unrestricted access.
+                <span className={styles.brandInline}>
+                  <Image
+                    src="/login-popup-white-logo.e29d2b59.png"
+                    alt="SmartB"
+                    width={70}
+                    height={23}
+                    priority={false}
+                  />
+                </span>{" "}
+                account for unrestricted access.
               </p>
               <button className={styles.modalLoginBtn}>Log In</button>
               <p className={styles.modalSignup}>

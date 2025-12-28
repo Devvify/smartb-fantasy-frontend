@@ -13,7 +13,7 @@ body {
 }
 
 body {
-  font-family: var(--font-apotek-comp-regular), "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen",
+  font-family: var(--font-inter), var(--font-apotek-comp-regular), -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -43,28 +43,14 @@ img {
   height: auto;
 }
 
-/* Custom scrollbar */
+/* Hide scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: #1a1a2e;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
-  border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #00b3d6 0%, #007a99 100%);
+  display: none;
 }
 
 /* Firefox scrollbar */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: #00d4ff #1a1a2e;
+  scrollbar-width: none;
 }
 
 html {

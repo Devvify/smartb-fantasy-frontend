@@ -9,7 +9,7 @@
 }
 
 .main {
-  padding: 2rem 0;
+  padding: 0.5rem 0;
   min-height: calc(100vh - 400px);
 }
 
@@ -17,6 +17,14 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
+  /* background: rgba(255, 255, 255, 1); */
+}
+
+.pageHeader {
+  padding: 33px 2rem;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background: rgba(248, 248, 248, 1);
 }
 
 .hero {
@@ -298,11 +306,11 @@
   .grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
-  
+
   .sidebar {
     display: none;
   }
-  
+
   .contentWrapper {
     display: block;
   }

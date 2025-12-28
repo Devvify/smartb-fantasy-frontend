@@ -88,12 +88,13 @@ export default function FantasyPage() {
 
       <main className={styles.main}>
         <div className={styles.container}>
-          <h1 className={styles.title}>All Competitions</h1>
-
-          <SportTabs
-            activeSport={activeSport}
-            onSportChange={handleSportChange}
-          />
+          <div className={styles.pageHeader}>
+            <h1 className={styles.title}>All Competitions</h1>
+            <SportTabs
+              activeSport={activeSport}
+              onSportChange={handleSportChange}
+            />
+          </div>
 
           <StatusTabs
             activeStatus={activeStatus}
